@@ -66,9 +66,8 @@ const Graph = () => {
     let arrNumber = [];
     let loadedTasks = localStorage.getItem("tasks");
     let tasks = JSON.parse(loadedTasks);
-
   
-    if (tasks != "") {
+    if (tasks != null) {
       let arrTodo = [
         ...tasks.filter(({status}) => status === "To Do"),
       ];
