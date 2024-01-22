@@ -96,7 +96,6 @@ export default function Countdown(props) {
         {twoDigits(hoursToDisplay)}:{twoDigits(minutesToDisplay)}:
         {twoDigits(secondsToDisplay)}
       </div>
-      {console.log("timeSpent==>",timeSpent)}
       {
         timeSpent != ""  && status === "Done" ? (<div><span className='time_spent'>Time Spent: {timeSpent}</span></div>) : (<div>Status: {statusClock}</div>)
       }

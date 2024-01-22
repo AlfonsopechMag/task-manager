@@ -42,16 +42,19 @@ const HomePage = () => {
     }
 
     function addTask(taskToAdd) {        
-        let filteredTasks = tasks.filter((task) => {
+      
+      let filteredTasks = tasks.filter((task) => {
         return task.id !== taskToAdd.id;
         });
 
-
-        let newTaskList = [...filteredTasks, taskToAdd];        
-        let taskSort = sortedArray(newTaskList)
+        if (filteredTasks != "" || filteredTasks != undefined) {
+          let newTaskList = [...filteredTasks, taskToAdd];        
+          let taskSort = sortedArray(newTaskList)
         
-        setTasks(taskSort);
-        saveTasksToLocalStorage(taskSort);
+          setTasks(taskSort);
+          saveTasksToLocalStorage(taskSort);
+        }  
+        
     }
 
     function deleteTask(taskId) {
@@ -71,8 +74,7 @@ const HomePage = () => {
 
         let filteredTasks = tasks.filter((task) => {
         return task.id !== id;
-        });
-        console.log(keyName);
+        });        
 
         if (keyName === "untilTime") {
           task.untilTime = newStatus
@@ -96,13 +98,15 @@ const HomePage = () => {
 
     function loadTasksFromLocalStorage() {
         let loadedTasks = localStorage.getItem("tasks");
-        let tasks = JSON.parse(loadedTasks);
-        let taskSort = sortedArray(tasks);
+        if (loadedTasks != null) {
+          let tasks = JSON.parse(loadedTasks);
+          let taskSort = sortedArray(tasks);
         
-
-        if (tasks) {
-        setTasks(taskSort);
+          if (tasks) {
+            setTasks(taskSort);
+          }  
         }
+        
     }
 
   return (

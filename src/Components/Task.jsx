@@ -28,13 +28,10 @@ export default function Task(props) {
   }
 
   function handleHoursCustom (e){
-    console.log(e);
       let convertHours = e*60;
-      console.log("convert==>",convertHours);
       let convertSeconds = convertHours *60;
-      console.log("convertSeconds==>",convertSeconds);
-      setCustomHours(convertSeconds)
-    
+
+      setCustomHours(convertSeconds)    
   }
 
   function handleMinutesCustom (e){
