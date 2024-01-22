@@ -73,7 +73,7 @@ export default function StatusLine(props) {
               +
             </button>
 
-            <button onClick={randomTask} className="button">
+            <button onClick={randomTask} className="button randomTask">
               random tasks
             </button>
           </div>      

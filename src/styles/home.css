@@ -102,6 +102,11 @@ button.addTask {
   margin-bottom: 10px;
 }
 
+button.randomTask {
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
 .container_toggler{
   width: 100%;
   display: flex;
