@@ -9,7 +9,7 @@ import {
   SidebarToggler,
 } from "./SidebarStyles";
 
-import "../../styles/home.css"
+import "../../styles/home.scss"
 import { SidebarItems } from "..";
 
 const MOBILE_VIEW = window.innerWidth < 468;
