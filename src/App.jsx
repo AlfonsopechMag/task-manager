@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import { Sidebar } from "./Components";
 import Home from "./pages/HomePage"
 import Graph from "./pages/Graph";
-import "./App.scss";
+import "./App.css";
 
 function App() {
   return (

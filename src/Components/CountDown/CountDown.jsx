@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react'
-import './countDown.scss'
+import './countDown.css'
 
 const STATUS = {
   STARTED: 'Started',

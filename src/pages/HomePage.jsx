@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useEffect } from "react";
 import StatusLine from "../Components/StatusLine";
 import {sortedArray} from '../utils/global'
-import "../styles/home.scss"
+import "../styles/home.css"
 
 const HomePage = () => {
     const [tasks, setTasks] = useState([]);
