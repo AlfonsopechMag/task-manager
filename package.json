@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "esbuild src/index.js --bundle --outfile=public/assets/app.js --loader:.js=jsx",
+    "build": "esbuild src/main.jsx --bundle --outfile=public/assets/app.js --loader:.js=jsx",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "serve dist"
   },
   "dependencies": {
     "@emotion/react": "^11.11.3",
@@ -19,6 +20,7 @@
     "react-dom": "^18.2.0",
     "react-icons": "^5.0.1",
     "react-router-dom": "^6.21.3",
+    "serve": "^14.2.1",
     "styled-components": "^6.1.8"
   },
   "devDependencies": {
