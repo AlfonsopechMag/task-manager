@@ -9,7 +9,7 @@ function App() {
     <div id="main">
       <Sidebar>
         <Routes>
-          <Route path="/" element={<Home/>} />
+          <Route path="/task-manager" element={<Home/>} />
           <Route path="/graph" element={<Graph/>} />
         </Routes>
       </Sidebar>
