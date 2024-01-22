@@ -15,15 +15,6 @@ const Graph = () => {
     loadTasksFromLocalStorage()
   },[])
 
-  function insert(arr, index, ...items)
-{
-    return [
-            ...arr.slice(0, index),
-            ...items,
-            ...arr.slice(index)
-        ];
-}
-
   function loadTasksFromLocalStorage() {
     let toDo = 0;
     let inProgress = 0;
