@@ -92,10 +92,12 @@ export default function Task(props) {
 
     if (customTime) {      
         timerUser = customHours + customMinutes;
-
         if (timerUser > 7200) {
           swal("The task must be less than 2 hours");
           validData = false
+        }else if (timerUser <= 0) {
+          validData = false
+          swal("Task time cannot be equal to zero, please type a valid time");
         }else{       
           if(timerUser <= 1800){
             customUrgency = "low";
@@ -104,6 +106,7 @@ export default function Task(props) {
           }else{
             customUrgency = "high";
           }
+          validData = true;
           setTime(timerUser);
         }        
     }else{
@@ -113,7 +116,6 @@ export default function Task(props) {
       }
 
     }
-    
     if (formAction === "save" && validData) {
       if (collapsed) {
         setCollapsed(false);

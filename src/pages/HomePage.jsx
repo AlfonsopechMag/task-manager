@@ -101,7 +101,7 @@ const HomePage = () => {
         }else{
           task.status = newStatus
         }
-      
+        let newTaskList = [...filteredTasks, task];
         setTasks(newTaskList);
         saveTasksToLocalStorage(newTaskList);
     }
