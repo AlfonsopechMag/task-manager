@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
 import { insertArrayValues } from '../utils/global';
-import "../styles/graph.scss"
+import "../styles/graph.css"
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
