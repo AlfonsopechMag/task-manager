@@ -23,6 +23,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 const Graph = () => {
 
   const [tasks, setTasks] = useState([]);
+  const [emptyData, setEmptyData] = useState(false)
 
   useEffect(()=>{
     loadTasksFromLocalStorage()
@@ -65,32 +66,38 @@ const Graph = () => {
     let arrNumber = [];
     let loadedTasks = localStorage.getItem("tasks");
     let tasks = JSON.parse(loadedTasks);
+
   
-    let arrTodo = [
-      ...tasks.filter(({status}) => status === "To Do"),
-    ];
-
-    let arrInProgress = [
-      ...tasks.filter(({status}) => status === "In Progress"),
-    ];
-
-    let arrDone = [
-      ...tasks.filter(({status}) => status === "Done")
-    ];
-
-    toDo = arrTodo.length;
-    inProgress = arrInProgress.length;
-    done = arrDone.length;
-
-    var result = insertArrayValues(arrNumber,0, toDo, inProgress, done);
-
-    setTasks(result);
+    if (tasks != "") {
+      let arrTodo = [
+        ...tasks.filter(({status}) => status === "To Do"),
+      ];
+  
+      let arrInProgress = [
+        ...tasks.filter(({status}) => status === "In Progress"),
+      ];
+  
+      let arrDone = [
+        ...tasks.filter(({status}) => status === "Done")
+      ];
+  
+      toDo = arrTodo.length;
+      inProgress = arrInProgress.length;
+      done = arrDone.length;
+  
+      var result = insertArrayValues(arrNumber,0, toDo, inProgress, done);
+      setEmptyData(false)
+      setTasks(result);  
+    }else{
+      setEmptyData(true)
+    }
+    
   
 }
   
   return (
     <div className='graphyc_container'>
-      <Pie data={dataChart} />
+      {!emptyData ? (<Pie data={dataChart} />) : <span>There is no information to show on the graph</span>}
     </div>
   )
 }
