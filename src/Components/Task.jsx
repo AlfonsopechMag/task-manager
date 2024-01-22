@@ -50,7 +50,7 @@ export default function Task(props) {
 
         if (timerUser >= 7200) {
           setMessage("the task must be less than 2 hours")
-        }else{
+        }else{       
           if(customTimer <= 1800){
             customUrgency = "low";
           }else if(customTimer > 1800 && customTimer <=  2700){            
@@ -58,11 +58,12 @@ export default function Task(props) {
           }else{
             customUrgency = "high";
           }
-          setTime(customTimer)
+          setMessage("");
+          setTime(customTimer);
         }        
     }
     
-    if (formAction === "save" && message != "") {
+    if (formAction === "save") {
       if (collapsed) {
         setCollapsed(false);
       } else {
