@@ -7,9 +7,9 @@
  */
 export const sortedArray = (array) => {
     const newArr = [
-        ...array.filter(({urgency}) => urgency === "low"),
-        ...array.filter(({urgency}) => urgency === "medium"),
-        ...array.filter(({urgency}) => urgency === "high") 
+        ...array?.filter(({urgency}) => urgency === "low"),
+        ...array?.filter(({urgency}) => urgency === "medium"),
+        ...array?.filter(({urgency}) => urgency === "high") 
     ];
    
     return newArr;
