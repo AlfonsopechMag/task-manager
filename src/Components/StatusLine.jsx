@@ -5,7 +5,7 @@ import "../styles/statusLine.css";
 import Task from "./Task";
 
 export default function StatusLine(props) {
-  const { status, tasks, addTask, deleteTask, addEmptyTask, moveTask, setFilterIsActive, setTasksFiltered } = props;
+  const { status, tasks, addTask, deleteTask, addEmptyTask, moveTask, setFilterIsActive, setTasksFiltered, randomTask } = props;
 
   let taskList, tasksForStatus;
 
@@ -29,7 +29,7 @@ export default function StatusLine(props) {
 
       let loadedTasks = localStorage.getItem("tasks");
       let tasks = JSON.parse(loadedTasks);
-      let newArr = tasks.filter(({urgency, status}) => urgency === urgencyFilter && status === "To Do");
+      let newArr = tasks?.filter(({urgency, status}) => urgency === urgencyFilter && status === "To Do");
       setTasksFiltered(newArr)
     }    
   }
@@ -72,7 +72,12 @@ export default function StatusLine(props) {
             <button onClick={handleAddEmpty} className="button addTask">
               +
             </button>
-          </div>          
+
+            <button onClick={randomTask} className="button">
+              random tasks
+            </button>
+          </div>      
+              
         </div>        
       }
           

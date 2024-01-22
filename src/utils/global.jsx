@@ -7,9 +7,9 @@
  */
 export const sortedArray = (array) => {
     const newArr = [
-        ...array?.filter(({urgency}) => urgency === "low"),
-        ...array?.filter(({urgency}) => urgency === "medium"),
-        ...array?.filter(({urgency}) => urgency === "high") 
+        ...array.filter(({urgency}) => urgency === "low"),
+        ...array.filter(({urgency}) => urgency === "medium"),
+        ...array.filter(({urgency}) => urgency === "high") 
     ];
    
     return newArr;
@@ -48,25 +48,17 @@ export const secondsToString = (seconds)=>{
     return hour + ':' + minute + ':' + second;
    };
 
-   /**
- * @name insertArrayValues
- * @description function to insert multiples values on array
- * @param {Array} arr array for add new values
- * @param index index into array to set data
- * @param items list of multiples items to set into array
- * @returns Array
- */
-export const insertUpdatedValues = (task)=>{
-    let newTask = {
-        id: task.id,
-        title: task.title,
-        description: task.description,
-        urgency: task.urgency,
-        status: task.status,
-        isCollapsed: true,
-        time: task.time,
-        untilTime: timeLeft
-      };
+  export const filterIds = (tasks)=>{
+    let newTaskId = 1;
+        
+    const ids = tasks.map(object => {
+      return object.id;
+    });
     
-    return newTask
-   };
+    if (ids.length > 0) {
+      const max = Math.max(...ids);
+      newTaskId = max + 1;  
+    }
+    
+    return newTaskId
+   }

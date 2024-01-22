@@ -9,7 +9,7 @@ import 'react-tabs/style/react-tabs.css';
 import "../styles/home.css"
 
 /*Others */
-import {sortedArray} from '../utils/global';
+import {filterIds, sortedArray} from '../utils/global';
 import { FaArrowTrendUp } from "react-icons/fa6";
 import { AiFillCheckCircle } from "react-icons/ai";
 import { AiFillDatabase } from "react-icons/ai";
@@ -33,17 +33,7 @@ const HomePage = () => {
    * addEmptyTask function to add new task
    */
     function addEmptyTask(status) {  
-        let newTaskId = 1;
-
-        
-        const ids = tasks.map(object => {
-          return object.id;
-        });
-        
-        if (ids.length > 0) {
-          const max = Math.max(...ids);
-          newTaskId = max + 1;  
-        }
+        let newTaskId =  filterIds(tasks);
                     
         setTasks((tasks) => [
         ...tasks,
@@ -111,13 +101,35 @@ const HomePage = () => {
         }else{
           task.status = newStatus
         }
-        
-
-        let newTaskList = [...filteredTasks, task];
-
+      
         setTasks(newTaskList);
-
         saveTasksToLocalStorage(newTaskList);
+    }
+
+    /**
+   * randomTask function to set random task into the task manager
+   */
+    function randomTask() {
+      let taskRandom = [];
+      
+      for (let index = 1; index <= 50; index++) {      
+        let newTaskId =  filterIds(tasks);
+        let newTask = {
+          id: newTaskId,
+          title: "TaskRandom"+ index,
+          description: "This task is generate for a function",
+          urgency: "low",
+          status: "To Do",
+          isCollapsed: true,
+          time: 500,
+          timeSpent: "",
+          untilTime: 0
+        };
+    
+        taskRandom.push(newTask)
+      }
+      setTasks(taskRandom);
+      saveTasksToLocalStorage(taskRandom);
     }
 
     /**
@@ -165,6 +177,7 @@ const HomePage = () => {
                   status="To Do"
                   setFilterIsActive={setFilterIsActive}
                   setTasksFiltered={setTasksFiltered}
+                  randomTask={randomTask}
               />
             </TabPanel>
             <TabPanel>

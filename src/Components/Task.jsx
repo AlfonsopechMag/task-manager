@@ -6,6 +6,8 @@ import { AiFillDelete } from "react-icons/ai";
 import { AiFillEdit } from "react-icons/ai";
 import { AiFillSave } from "react-icons/ai";
 
+import swal from 'sweetalert';
+
 /**
  * @name Task
  * @description component for task cards
@@ -24,8 +26,6 @@ export default function Task(props) {
   const [customHours, setCustomHours] = useState(0)
   const [customMinutes, setCustomMinutes] = useState(0)
   const [formAction, setFormAction] = useState("");
-  const [message, setMessage] = useState("");
-
   
   /**
    * Untiltime function to set time for the task and urgency level
@@ -46,10 +46,15 @@ export default function Task(props) {
    * handleHoursCustom function to set hours when user select custom time
    */
   function handleHoursCustom (e){
+    if (e > 0) {
       let convertHours = e*60;
       let convertSeconds = convertHours *60;
 
-      setCustomHours(convertSeconds)    
+      setCustomHours(convertSeconds)      
+    }else{
+      setCustomHours(0)
+    }
+    
   }
 
   /**
@@ -59,6 +64,20 @@ export default function Task(props) {
     if(e > 0 && e < 59){        
         let convertSeconds = e *60;
         setCustomMinutes(convertSeconds)
+    }else{
+      setCustomMinutes(0)
+    }
+  }
+
+  function validateData(title, desc){
+    if (title === "") {
+      swal("The name can't be empty");
+      return false;
+    }else if(desc === ""){
+      swal("The description can't be empty");
+      return false;
+    }else{
+      return true
     }
   }
 
@@ -67,27 +86,35 @@ export default function Task(props) {
    */
   function handleSubmit(event) {
     event.preventDefault();
+    let validData = validateData(event.target.elements.title.value, event.target.elements.description.value);
     let timerUser = 0;
     let customUrgency = "";
-    if (customTime) {        
+
+    if (customTime) {      
         timerUser = customHours + customMinutes;
 
-        if (timerUser >= 7200) {
-          setMessage("the task must be less than 2 hours")
+        if (timerUser > 7200) {
+          swal("The task must be less than 2 hours");
+          validData = false
         }else{       
-          if(customTimer <= 1800){
+          if(timerUser <= 1800){
             customUrgency = "low";
-          }else if(customTimer > 1800 && customTimer <=  2700){            
+          }else if(timerUser > 1800 && timerUser <=  2700){            
               customUrgency = "medium";
           }else{
             customUrgency = "high";
           }
-          setMessage("");
-          setTime(customTimer);
+          setTime(timerUser);
         }        
+    }else{
+      if (time === "") {
+        validData = false
+        swal("Task time cannot be equal to zero");
+      }
+
     }
     
-    if (formAction === "save") {
+    if (formAction === "save" && validData) {
       if (collapsed) {
         setCollapsed(false);
       } else {
@@ -199,6 +226,7 @@ export default function Task(props) {
             className="description input"
             name="description"
             placeholder="Enter Description"
+            disabled={collapsed}
             defaultValue={task.description}
           />
         </div>     
@@ -238,14 +266,8 @@ export default function Task(props) {
                         X
                     </button>
                 </div>
-                <br/>
-                
-                
-            </div>
-            {message != "" && (<div>
-              <span className="">{message}</span>
-            </div>)}
-            
+                <br/>                                
+            </div>                        
             </>
             : 
             null
