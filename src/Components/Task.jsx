@@ -1,4 +1,4 @@
-import "../styles/task.scss";
+import "../styles/task.css";
 import { useEffect, useState } from "react";
 import Countdown from "./CountDown/CountDown"
 import { secondsToString } from "../utils/global";
