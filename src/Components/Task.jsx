@@ -2,7 +2,16 @@ import "../styles/task.css";
 import { useEffect, useState } from "react";
 import Countdown from "./CountDown/CountDown"
 import { secondsToString } from "../utils/global";
+import { AiFillDelete } from "react-icons/ai";
+import { AiFillEdit } from "react-icons/ai";
+import { AiFillSave } from "react-icons/ai";
 
+/**
+ * @name Task
+ * @description component for task cards
+ * @param {props} data information to render all task
+ * @returns
+ */
 export default function Task(props) {
   const { addTask, deleteTask, moveTask, task, status } = props;
   const [urgencyLevel, setUrgencyLevel] = useState(task.urgency);
@@ -18,15 +27,24 @@ export default function Task(props) {
   const [message, setMessage] = useState("");
 
   
+  /**
+   * Untiltime function to set time for the task and urgency level
+   */
   function setUrgencyAndTime(event) {
     setUrgencyLevel(event.target.attributes.urgency.value);
     setTime(event.target.attributes.timer.value)
   }
 
+  /**
+   * Untiltime function to set until time when user start the timer
+   */
   function Untiltime(event){
     setTimeLeft(event)
   }
 
+  /**
+   * handleHoursCustom function to set hours when user select custom time
+   */
   function handleHoursCustom (e){
       let convertHours = e*60;
       let convertSeconds = convertHours *60;
@@ -34,6 +52,9 @@ export default function Task(props) {
       setCustomHours(convertSeconds)    
   }
 
+  /**
+   * handleMinutesCustom function to set minutes when user select custom time
+   */
   function handleMinutesCustom (e){
     if(e > 0 && e < 59){        
         let convertSeconds = e *60;
@@ -41,6 +62,9 @@ export default function Task(props) {
     }
   }
 
+  /**
+   * handleSubmit function to set data or remove task
+   */
   function handleSubmit(event) {
     event.preventDefault();
     let timerUser = 0;
@@ -89,6 +113,9 @@ export default function Task(props) {
     }
   }
 
+  /**
+   * handleMoveLeft changes status of the task according to previous status
+   */
   function handleMoveLeft() {
     let newStatus = "";
 
@@ -104,12 +131,11 @@ export default function Task(props) {
   }
 
   /**
-   * handleMoveRight Click to redirect orders page
+   * handleMoveRight changes status of the task according to previous status
    */
   async function handleMoveRight() {
     let newStatus = "";
     
-
     if (task.status === "To Do") {
       newStatus = "In Progress";
     } else if (task.status === "In Progress") {
@@ -127,7 +153,7 @@ export default function Task(props) {
   }
 
   /**
-   * useEffect to dispatch the request for financial products (select type products)
+   * useEffect to set status Done when a timer reaches zero
    */
   useEffect(()=>{
     if (timeFinished) {
@@ -136,10 +162,9 @@ export default function Task(props) {
   }, [timeFinished]);
 
   /**
-   * useEffect to dispatch the request for financial products (select type products)
+   * useEffect to set until time when the user start the timer
    */
   useEffect(()=>{
-
     if (timeLeft > 0 || timeSpent != "") {
       moveTask(task.id, timeLeft, "untilTime")
       if (timeSpent != "") {
@@ -169,14 +194,15 @@ export default function Task(props) {
             disabled={collapsed}
             defaultValue={task.title}
             />   
+          <textarea
+            rows="2"
+            className="description input"
+            name="description"
+            placeholder="Enter Description"
+            defaultValue={task.description}
+          />
         </div>     
-        <textarea
-          rows="2"
-          className="description input"
-          name="description"
-          placeholder="Enter Description"
-          defaultValue={task.description}
-        />
+        
          {!collapsed && customTime ? 
          <>
             <div className="custom-time">
@@ -225,7 +251,7 @@ export default function Task(props) {
             null
          }
          
-        {!customTime ? 
+        {!customTime && !collapsed ? 
          <div className={`urgencyLabels ${collapsed && "container_urgency"}`}>
          <label className={`low ${urgencyLevel === "low" ? "selected" : ""}`}>
            <input
@@ -273,32 +299,8 @@ export default function Task(props) {
            Custom Time
          </label>
        </div> : null}
-       
-        <div>
-          {status === "Done" ? null : (
-            <button
-              onClick={() => {
-                  setFormAction("save");
-              }}
-              className="button"
-            >
-              {collapsed ? "Edit" : "Save"}
-            </button>
-          )}
-            
-            {collapsed && (
-            <button
-                onClick={() => {
-                setFormAction("delete");
-                }}
-                className="button delete"
-            >
-                X
-            </button>
-            )}
-        </div>
 
-        {!collapsed ? null : 
+       {!collapsed ? null : 
         <div>
             <Countdown
               status={status} 
@@ -309,8 +311,31 @@ export default function Task(props) {
               timeSpent={timeSpent}
             />
         </div>
-        
-        }        
+        }
+       
+        <div>
+          {status === "Done" ? null : (
+            <button
+              onClick={() => {
+                  setFormAction("save");
+              }}
+              className="button"
+            >
+              {collapsed ? (<>Edit<AiFillEdit className="icon_edit"/></>) : (<>Save<AiFillSave /></>)}
+            </button>
+          )}
+            
+            {collapsed && (
+            <button
+                onClick={() => {
+                setFormAction("delete");
+                }}
+                className="button delete"
+            >
+                Delete<AiFillDelete className="icon_delete"/>
+            </button>
+            )}
+        </div>                
       </form>
       <div>
         { status === "Done" ? null : !collapsed ? null : 

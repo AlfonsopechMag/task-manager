@@ -1,5 +1,8 @@
+/* Dependencies */
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+
+/* Components */
 import {
   ItemsList,
   ItemContainer,
@@ -7,6 +10,7 @@ import {
   ItemName,
 } from "./SidebarStyles";
 
+/*Other */
 import { SIDEBAR_DATA } from "../Data";
 
 const SidebarItems = ({ displaySidebar }) => {

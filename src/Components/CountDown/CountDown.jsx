@@ -1,5 +1,13 @@
+/* Dependencies */
 import React, {useState, useEffect, useRef} from 'react'
+
+/* Styles */
 import './countDown.css'
+
+/* Others */
+import { FaPlay } from "react-icons/fa";
+import { FaPause } from "react-icons/fa";
+import { VscDebugRestart } from "react-icons/vsc";
 
 const STATUS = {
   STARTED: 'Started',
@@ -7,6 +15,12 @@ const STATUS = {
 }
 
 
+/**
+ * @name Countdown
+ * @description component to render a timer for the task
+ * @param {props} time information 
+ * @returns
+ */
 export default function Countdown(props) {
   const {status,initialTime, timeLeft, timeFinished, untilTime, timeSpent} = props;
   const [secondsRemaining, setSecondsRemaining] = useState(initialTime)
@@ -17,6 +31,9 @@ export default function Countdown(props) {
   const minutesToDisplay = minutesRemaining % 60
   const hoursToDisplay = (minutesRemaining - minutesToDisplay) / 60
 
+  /**
+   * useEffect to set task time remaining
+   */
   useEffect(()=>{
     if (untilTime != "" || untilTime != 0) {
       setSecondsRemaining(untilTime)
@@ -48,6 +65,9 @@ export default function Countdown(props) {
   
   const twoDigits = (num) => String(num).padStart(2, '0')
 
+  /**
+   * funtions to set status for the timer
+   */
   const handleStart = () => {
     setStatusClock(STATUS.STARTED)
   }
@@ -76,18 +96,18 @@ export default function Countdown(props) {
   return (
     <div className="countDown">
       <div className='label_timer'> 
-        <span>Timer</span>
+        <span>Timer </span>
       </div>
      
         <div className='control_timer'>
           <button onClick={handleStart} type="button" disabled={status === "In Progress" ? false : true}>
-            Start
+            <FaPlay />
           </button>
           <button onClick={handleStop} type="button" disabled={status === "In Progress" ? false : true}>
-            Stop
+            <FaPause />
           </button>
           <button onClick={handleReset} type="button" disabled={status === "In Progress" ? false : true}>
-            Reset
+            <VscDebugRestart />
           </button>
         </div>
       
@@ -97,7 +117,7 @@ export default function Countdown(props) {
         {twoDigits(secondsToDisplay)}
       </div>
       {
-        timeSpent != ""  && status === "Done" ? (<div><span className='time_spent'>Time Spent: {timeSpent}</span></div>) : (<div>Status: {statusClock}</div>)
+        timeSpent != ""  && status === "Done" ? (<div><span className='time_spent'>Time Spent: {timeSpent}</span></div>) : (<div className='time_spent'>Status: {statusClock}</div>)
       }
       
     </div>

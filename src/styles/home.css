@@ -11,9 +11,9 @@
   --greyColor: #686d76;
   --whiteColor: #eeecda;
   --goldColor: #edc988;
-  --greenColor: #9ad3bc;
+  --greenColor: #9BD7D1;
   --yellowColor: #edf285;
-  --pinkColor: #ffa5a5;
+  --pinkColor: #F56A79;
   --redColor: #ff8282;
   --highlightColor: #2ec1ac;
 
@@ -21,7 +21,7 @@
 
 body {
   font-family: "Kanit", sans-serif;
-  background-color: #9b9b9b;
+  background-color: #2D3250;
   color: var(--whiteColor);
   display: flex;
   flex-direction: column;
@@ -61,56 +61,59 @@ section {
   border-radius: 0.25rem;
   font-size: 1rem;
   margin-right: 0.25rem;
+}
+button:hover {
+  background-color: var(--highlightColor);
+  border-color: var(--highlightColor);
+  cursor: pointer;
+}
 
-  &:hover {
-    background-color: var(--highlightColor);
-    border-color: var(--highlightColor);
-    cursor: pointer;
-  }
+button:focus {
+  outline: none;
+  border-color: var(--highlightColor);
+  background-color: var(--highlightColor);
+  color: var(--whiteColor);
+}
 
-  &:focus {
-    outline: none;
-    border-color: var(--highlightColor);
-    background-color: var(--highlightColor);
-    color: var(--whiteColor);
-  }
+button.moveTask {
+  font-size: 16px;
+  padding: 0.5rem 0.5rem;
+  margin-bottom: 0;
+  line-height: 1rem;
+}
 
-  &.addTask {
-    font-size: 3rem;
-    padding: 0 0 0.4rem 0;
-    border-radius: 50%;
-    width: 2.5rem;
-    height: 2.5rem;
-    line-height: 1rem;
-    margin-bottom: 10px;
-  }
+button.delete {
+  background-color: var(--pinkColor);
+  border-color: var(--pinkColor);
+}
 
-  &.moveTask {
-    font-size: 1.5rem;
-    padding: 0.5rem 0.5rem;
-    margin-bottom: 0;
-    line-height: 1rem;
-  }
+button.delete:hover {
+  background-color: var(--redColor);
+  border-color: var(--redColor);
+}
 
-  &.delete {
-    background-color: var(--pinkColor);
-    border-color: var(--pinkColor);
-
-    &:hover {
-      background-color: var(--redColor);
-      border-color: var(--redColor);
-    }
-  }
+button.addTask {
+  font-size: 3rem;
+  padding: 0 0 0.4rem 0;
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  line-height: 1rem;
+  margin-bottom: 10px;
 }
 
 .container_toggler{
   width: 100%;
   display: flex;
-  justify-content: end;
+  justify-content: end;  
+}
 
-  .icon_toggle{
-    font-size: 20px;
-  }
+.container_toggler.icon_toggle{
+  font-size: 20px;
+}
+
+.container-tabs{
+  width: 90%;
 }
 
 @media only screen and (max-width: 75rem) {

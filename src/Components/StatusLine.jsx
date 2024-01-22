@@ -1,4 +1,7 @@
+/*Styles */
 import "../styles/statusLine.css";
+
+/*Components */
 import Task from "./Task";
 
 export default function StatusLine(props) {
@@ -6,10 +9,17 @@ export default function StatusLine(props) {
 
   let taskList, tasksForStatus;
 
+
+  /**
+   * handleAddEmpty function to add empty status for a new task
+   */
   function handleAddEmpty() {
     addEmptyTask(status);
   }
 
+  /**
+   * filterByStatus function to filter status by status and set data into array of tasks
+   */
   function filterByStatus(urgencyFilter){
     if (urgencyFilter === "All") {
       setFilterIsActive(false)
@@ -46,10 +56,7 @@ export default function StatusLine(props) {
   }
 
   return (
-    <div className="statusLine">
-      <h3>{status}</h3>
-      
-            
+    <div className="statusLine">                  
       {status === "To Do" && 
         <div className="container_filter">
           <div className="container_select">

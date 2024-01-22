@@ -1,6 +1,7 @@
+/* Dependencies */
 import React, { useState } from "react";
-import { AiOutlineMenu } from "react-icons/ai";
 
+/* Components */
 import {
   Children,
   SidebarContainer,
@@ -9,14 +10,27 @@ import {
   SidebarToggler,
 } from "./SidebarStyles";
 
+/* Styles */
 import "../../styles/home.css"
+
+/* Others */
 import { SidebarItems } from "..";
+import { AiOutlineMenu } from "react-icons/ai";
 
 const MOBILE_VIEW = window.innerWidth < 468;
 
+/**
+ * @name Sidebar
+ * @description sidebar to navigate into the page
+ * @param {children} data information for sidebar
+ * @returns
+ */
 export default function Sidebar({ children }) {
   const [displaySidebar, setDisplaySidebar] = useState(!MOBILE_VIEW);
 
+  /**
+   * handleSidebarDisplay to listen window size
+   */
   const handleSidebarDisplay = (e) => {
     e.preventDefault();
     if (window.innerWidth > 468) {

@@ -1,9 +1,25 @@
+/*Dependecies */
 import React from 'react'
 import { useState, useEffect } from "react";
+/*Components */
 import StatusLine from "../Components/StatusLine";
-import {sortedArray} from '../utils/global'
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+/*Styles */
+import 'react-tabs/style/react-tabs.css';
 import "../styles/home.css"
 
+/*Others */
+import {sortedArray} from '../utils/global';
+import { FaArrowTrendUp } from "react-icons/fa6";
+import { AiFillCheckCircle } from "react-icons/ai";
+import { AiFillDatabase } from "react-icons/ai";
+
+
+/**
+ * @name HomePage
+ * @description home page
+ * @returns
+ */
 const HomePage = () => {
     const [tasks, setTasks] = useState([]);
     const [taskFiltered, setTasksFiltered] = useState([]);
@@ -13,6 +29,9 @@ const HomePage = () => {
         loadTasksFromLocalStorage();
     }, []);
 
+    /**
+   * addEmptyTask function to add new task
+   */
     function addEmptyTask(status) {  
         let newTaskId = 1;
 
@@ -41,6 +60,9 @@ const HomePage = () => {
         ]);
     }
 
+   /**
+   * addTask function to modify existing task
+   */
     function addTask(taskToAdd) {        
       
       let filteredTasks = tasks.filter((task) => {
@@ -57,6 +79,9 @@ const HomePage = () => {
         
     }
 
+    /**
+   * deleteTask function to delete existing task
+   */
     function deleteTask(taskId) {
         let filteredTasks = tasks.filter((task) => {
         return task.id !== taskId;
@@ -67,6 +92,9 @@ const HomePage = () => {
         saveTasksToLocalStorage(filteredTasks);
     }
 
+    /**
+   * moveTask function to set new status for existing task
+   */
     function moveTask(id, newStatus, keyName) {
       let task = tasks.filter((task) => {
         return task.id === id;
@@ -92,10 +120,16 @@ const HomePage = () => {
         saveTasksToLocalStorage(newTaskList);
     }
 
+    /**
+   * saveTasksToLocalStorage function to set all task into LocalStorage
+   */
     function saveTasksToLocalStorage(tasks) {
         localStorage.setItem("tasks", JSON.stringify(tasks));
     }
 
+    /**
+   * loadTasksFromLocalStorage function to load existing task
+   */
     function loadTasksFromLocalStorage() {
         let loadedTasks = localStorage.getItem("tasks");
         if (loadedTasks != null) {
@@ -113,33 +147,50 @@ const HomePage = () => {
     <div>
       <h1>Task Management</h1>
       <main>
-        <section>
-          <StatusLine
-            tasks={!filterIsActive ? tasks : taskFiltered}
-            addEmptyTask={addEmptyTask}
-            addTask={addTask}
-            deleteTask={deleteTask}
-            moveTask={moveTask}
-            status="To Do"
-            setFilterIsActive={setFilterIsActive}
-            setTasksFiltered={setTasksFiltered}
-          />
-          <StatusLine
-            tasks={tasks}
-            addEmptyTask={addEmptyTask}
-            addTask={addTask}
-            deleteTask={deleteTask}
-            moveTask={moveTask}
-            status="In Progress"
-          />
-          <StatusLine
-            tasks={tasks}
-            addEmptyTask={addEmptyTask}
-            addTask={addTask}
-            deleteTask={deleteTask}
-            moveTask={moveTask}
-            status="Done"
-          />
+    <div className='container-tabs'>
+          <Tabs>
+            <TabList>
+              <Tab>To Do <AiFillDatabase /></Tab>
+              <Tab>In Progress <FaArrowTrendUp /></Tab>
+              <Tab>Done <AiFillCheckCircle /></Tab>
+            </TabList>
+              
+            <TabPanel>
+              <StatusLine
+                  tasks={!filterIsActive ? tasks : taskFiltered}
+                  addEmptyTask={addEmptyTask}
+                  addTask={addTask}
+                  deleteTask={deleteTask}
+                  moveTask={moveTask}
+                  status="To Do"
+                  setFilterIsActive={setFilterIsActive}
+                  setTasksFiltered={setTasksFiltered}
+              />
+            </TabPanel>
+            <TabPanel>
+            <StatusLine
+                tasks={tasks}
+                addEmptyTask={addEmptyTask}
+                addTask={addTask}
+                deleteTask={deleteTask}
+                moveTask={moveTask}
+                status="In Progress"
+              />
+            </TabPanel>
+            <TabPanel>
+            <StatusLine
+                    tasks={tasks}
+                    addEmptyTask={addEmptyTask}
+                    addTask={addTask}
+                    deleteTask={deleteTask}
+                    moveTask={moveTask}
+                    status="Done"
+                  />
+            </TabPanel>
+          </Tabs>
+          </div>
+        <section>                    
+          
         </section>
       </main>
     </div>
