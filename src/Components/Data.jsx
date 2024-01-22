@@ -6,7 +6,7 @@ export const SIDEBAR_DATA = [
   {
     id: 1,
     name: "Task Manager",
-    path: "/",
+    path: "/task-manager/",
     icon: <i className='navList'> <AiFillDatabase className="icon"/></i>,
   },
   {
