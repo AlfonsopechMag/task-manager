@@ -48,13 +48,18 @@ export const secondsToString = (seconds)=>{
     return hour + ':' + minute + ':' + second;
    };
 
-  export const filterIds = (tasks)=>{
+   /**
+ * @name secondsToString
+ * @description function find the max value of ID and set id mayor
+ * @param seconds number of seconds to converted
+ * @returns Array
+ */
+   export const filterIds = (tasks)=>{
     let newTaskId = 1;
         
     const ids = tasks.map(object => {
       return object.id;
     });
-    
     if (ids.length > 0) {
       const max = Math.max(...ids);
       newTaskId = max + 1;  
@@ -62,3 +67,22 @@ export const secondsToString = (seconds)=>{
     
     return newTaskId
    }
+
+    /**
+ * @name secondsToString
+ * @description function to convert seconds to hours and minutes
+ * @param seconds number of seconds to converted
+ * @returns Array
+ */
+export const urgencyValue = (seconds)=>{
+  let customUrgency = "";
+  if(seconds <= 1800){
+    customUrgency = "low";
+  }else if(seconds > 1800 && seconds <=  2700){            
+      customUrgency = "medium";
+  }else{
+    customUrgency = "high";
+  }
+  
+  return customUrgency;
+ };

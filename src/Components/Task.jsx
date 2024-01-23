@@ -1,7 +1,7 @@
 import "../styles/task.css";
 import { useEffect, useState } from "react";
 import Countdown from "./CountDown/CountDown"
-import { secondsToString } from "../utils/global";
+import { secondsToString, urgencyValue } from "../utils/global";
 import { AiFillDelete } from "react-icons/ai";
 import { AiFillEdit } from "react-icons/ai";
 import { AiFillSave } from "react-icons/ai";
@@ -99,13 +99,7 @@ export default function Task(props) {
           validData = false
           swal("Task time cannot be equal to zero, please type a valid time");
         }else{       
-          if(timerUser <= 1800){
-            customUrgency = "low";
-          }else if(timerUser > 1800 && timerUser <=  2700){            
-              customUrgency = "medium";
-          }else{
-            customUrgency = "high";
-          }
+          customUrgency = urgencyValue(timerUser)
           validData = true;
           setTime(timerUser);
         }        

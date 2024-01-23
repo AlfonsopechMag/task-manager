@@ -9,7 +9,7 @@ import 'react-tabs/style/react-tabs.css';
 import "../styles/home.css"
 
 /*Others */
-import {filterIds, sortedArray} from '../utils/global';
+import {filterIds, sortedArray, urgencyValue} from '../utils/global';
 import { FaArrowTrendUp } from "react-icons/fa6";
 import { AiFillCheckCircle } from "react-icons/ai";
 import { AiFillDatabase } from "react-icons/ai";
@@ -111,25 +111,43 @@ const HomePage = () => {
    */
     function randomTask() {
       let taskRandom = [];
+      let taskSort = "";
       
       for (let index = 1; index <= 50; index++) {      
-        let newTaskId =  filterIds(tasks);
+        let newTaskId =  "";
+        if (tasks.length > 0) {
+          
+          newTaskId =  index + tasks.length + 1
+          
+        }else{
+          newTaskId = index + 1;
+        }
+        
+        var randomNumber = Math.floor(Math.random() * (7200 - 1 + 1)) + 1;
+        let urgencyLabel = urgencyValue(randomNumber);
+        
         let newTask = {
           id: newTaskId,
           title: "TaskRandom"+ index,
           description: "This task is generate for a function",
-          urgency: "low",
+          urgency: urgencyLabel,
           status: "To Do",
           isCollapsed: true,
-          time: 500,
+          time: randomNumber,
           timeSpent: "",
           untilTime: 0
         };
-    
         taskRandom.push(newTask)
       }
-      setTasks(taskRandom);
-      saveTasksToLocalStorage(taskRandom);
+      if (tasks != null || tasks != "") {
+        taskSort = sortedArray(tasks.concat(taskRandom));
+        setTasks(taskSort);
+      }else{
+        taskSort = sortedArray(tasks.concat(taskRandom));
+        setTasks(taskSort);
+        
+      }
+      saveTasksToLocalStorage(taskSort);
     }
 
     /**

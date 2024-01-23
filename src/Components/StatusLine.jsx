@@ -30,6 +30,7 @@ export default function StatusLine(props) {
       let loadedTasks = localStorage.getItem("tasks");
       let tasks = JSON.parse(loadedTasks);
       let newArr = tasks?.filter(({urgency, status}) => urgency === urgencyFilter && status === "To Do");
+      console.log("new==>",newArr);
       setTasksFiltered(newArr)
     }    
   }
