@@ -143,7 +143,7 @@ const HomePage = () => {
         taskSort = sortedArray(tasks.concat(taskRandom));
         setTasks(taskSort);
       }else{
-        taskSort = sortedArray(tasks.concat(taskRandom));
+        taskSort = sortedArray(taskRandom);
         setTasks(taskSort);
         
       }

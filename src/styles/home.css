@@ -121,7 +121,20 @@ button.randomTask {
   width: 90%;
 }
 
-@media only screen and (max-width: 75rem) {
+@media only screen and (min-width: 320px) and (max-width: 641px)  { 
+  .container-tabs {width: 100%;}
+  
+  button.randomTask {
+    width: 65%;
+    font-size: 12px;
+  }
+
+  button.addTask {
+    font-size: 35px;
+  }
+}
+
+@media (max-width: 75rem) {
   section {
     width: 100%;
     flex-direction: column;

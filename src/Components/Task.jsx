@@ -337,9 +337,9 @@ export default function Task(props) {
               onClick={() => {
                   setFormAction("save");
               }}
-              className="button"
+              className="button btn_edit"
             >
-              {collapsed ? (<>Edit<AiFillEdit className="icon_edit"/></>) : (<>Save<AiFillSave /></>)}
+              {collapsed ? (<>Edit<AiFillEdit className="icon_edit"/></>) : (<>Save<AiFillSave className="icon_save"/></>)}
             </button>
           )}
             
